@@ -22,7 +22,7 @@ $customer_name = $_SESSION["customer_name"] ?? "";
 
 $customer_email = $_SESSION["customer_email"] ?? "";
 
-$customer_id = $_SESSION["customer_id"];
+$customer_id = $_SESSION["customer_id"] ?? null;
 
 $success = "";
 
@@ -279,7 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ------------------------- */
 
         if (
-            $review->create(
+            $reviewModel->create(
                 $_SESSION["customer_id"],
                 $rating,
                 $comment

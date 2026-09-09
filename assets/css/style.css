@@ -332,6 +332,8 @@ img {
     justify-content: center;
 
     align-items: center;
+
+    transform: translate(-80px, 40px) scale(1.30);
 }
 
 
@@ -349,11 +351,24 @@ img {
     max-height: 750px;
 
     object-fit: contain;
+    
+    animation: floatingHero 3s ease-in-out infinite;
+
 }
 
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
+@keyframes floatingHero {
+    
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /* =========================================================
@@ -398,19 +413,6 @@ img {
     font-weight: 700;
 
     letter-spacing: 1px;
-
-    animation: ticker 25s linear infinite;
-}
-
-@keyframes ticker {
-
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
 }
 
 

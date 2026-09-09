@@ -2,46 +2,19 @@
 
 session_start();
 
-
 /*
- * Remove customer session.
+ * Clear all customer and administrator session data.
  */
-
-unset(
-    $_SESSION["customer_id"],
-    $_SESSION["customer_name"],
-    $_SESSION["customer_email"]
-);
-
-
-/*
- * Remove administrator session too.
- */
-
-unset(
-    $_SESSION["admin_logged_in"],
-    $_SESSION["admin_username"]
-);
-
-
-/*
- * Clear everything.
- */
-
 $_SESSION = [];
 
-
 /*
- * Destroy the session.
+ * Destroy the current session.
  */
-
 session_destroy();
 
-
 /*
- * Return to ONE LOGIN PAGE.
+ * Return to the homepage.
  */
-
 header("Location: index.php");
 exit;
 

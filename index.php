@@ -1,27 +1,21 @@
 <?php
 session_start();
 
+/* =====================================================
+   HOMEPAGE ACCESS
+   index.php is PUBLIC.
+   Logged-out visitors must stay on index.php.
+===================================================== */
 
-/* =========================================
-   CUSTOMER SESSION
-========================================= */
-
-$customer_logged_in = isset($_SESSION["customer_id"]);
-
-$customer_name = $_SESSION["customer_name"] ?? "";
-
-$customer_email = $_SESSION["customer_email"] ?? "";
-
+$customer_id = $_SESSION["customer_id"] ?? null;
+$customer = null;
+$initials = "";
 
 require_once "config/Database.php";
 require_once "classes/Service.php";
 
-
 $database = new Database();
-
 $db = $database->connect();
-
-$customer_id = $_SESSION["customer_id"];
 
 
 $success = "";
@@ -35,7 +29,7 @@ $services = $serviceObject->getAll();
    UPDATE PROFILE
 ========================================= */
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && $customer_id !== null) {
 
     $full_name =
         trim($_POST["full_name"] ?? "");
@@ -165,75 +159,73 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 /* =========================================
-   GET CUSTOMER
+   GET CUSTOMER (ONLY IF LOGGED IN)
 ========================================= */
 
-$customer_query =
-    $db->prepare("
-        SELECT
-            full_name,
-            email,
-            contact_number,
-            created_at
-        FROM customers
-        WHERE id = :id
-        LIMIT 1
-    ");
+if ($customer_id !== null) {
 
+    $customer_query =
+        $db->prepare("
+            SELECT
+                full_name,
+                email,
+                contact_number,
+                created_at
+            FROM customers
+            WHERE id = :id
+            LIMIT 1
+        ");
 
-$customer_query->execute([
+    $customer_query->execute([
+        ":id" => $customer_id
+    ]);
 
-    ":id" =>
-        $customer_id
-
-]);
-
-
-$customer =
-    $customer_query->fetch(
-        PDO::FETCH_ASSOC
-    );
-
-
-/* =========================================
-   SAFETY CHECK
-========================================= */
-
-if (!$customer) {
-
-    session_destroy();
-
-    header("Location: login.php");
-
-    exit();
-
-}
-
-
-/* =========================================
-   INITIAL
-========================================= */
-
-$name_parts =
-    preg_split(
-        '/\s+/',
-        trim($customer["full_name"])
-    );
-
-
-$initials = "";
-
-
-foreach (
-    array_slice($name_parts, 0, 2)
-    as $part
-) {
-
-    $initials .=
-        strtoupper(
-            substr($part, 0, 1)
+    $customer =
+        $customer_query->fetch(
+            PDO::FETCH_ASSOC
         );
 
+    /* =========================================
+       SAFETY CHECK
+       If the customer record no longer exists,
+       clear the invalid customer session but
+       KEEP THE USER ON index.php.
+    ========================================= */
+
+    if (!$customer) {
+        unset(
+            $_SESSION["customer_id"],
+            $_SESSION["customer_name"],
+            $_SESSION["customer_email"]
+        );
+
+        $customer_id = null;
+    }
+}
+
+/* =========================================
+   INITIALS FOR LOGGED-IN CUSTOMER
+========================================= */
+
+if ($customer) {
+
+    $name_parts =
+        preg_split(
+            '/\s+/',
+            trim($customer["full_name"])
+        );
+
+    foreach (
+        array_slice($name_parts, 0, 2)
+        as $part
+    ) {
+        if ($part !== "") {
+            $initials .=
+                strtoupper(
+                    substr($part, 0, 1)
+                );
+        }
+    }
 }
 
 ?>
