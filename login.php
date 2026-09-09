@@ -41,9 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = $_POST["password"] ?? "";
 
 
-    /* ================================================
+    /* =================================================
        VALIDATION
-    ================================================ */
+    ================================================= */
 
     if ($identifier === "" || $password === "") {
 
@@ -51,103 +51,147 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } else {
 
-        /* ================================================
-           ADMIN LOGIN
-           
-           Uses your existing administrator credentials.
-        ================================================ */
+        try {
 
-        $adminUsername = "Archilles";
+            /* ============================================
+               ADMIN LOGIN
+               Admin credentials are stored in the users
+               table. The password is verified using
+               password_verify().
+            ============================================ */
 
-        /*
-         * Keep the same administrator password
-         * you were previously using in admin/login.php.
-         */
-        $adminPassword = "030305";
+            $stmt = $db->prepare("
+                SELECT id, username, password, role
+                FROM users
+                WHERE username = :username
+                AND role = 'admin'
+                LIMIT 1
+            ");
 
+            $stmt->execute([
+                ":username" => $identifier
+            ]);
 
-        if (
-            $identifier === $adminUsername &&
-            $password === $adminPassword
-        ) {
+            $admin = $stmt->fetch();
+
 
             /*
-             * Prevent session mixing between
-             * administrator and customer.
+             * Verify the hashed administrator password.
              */
-            unset(
-                $_SESSION["customer_id"],
-                $_SESSION["customer_name"],
-                $_SESSION["customer_email"]
+            if (
+                $admin &&
+                password_verify($password, $admin["password"])
+            ) {
+
+                /*
+                 * Prevent session fixation and remove
+                 * customer session information.
+                 */
+                unset(
+                    $_SESSION["customer_id"],
+                    $_SESSION["customer_name"],
+                    $_SESSION["customer_email"]
+                );
+
+                session_regenerate_id(true);
+
+                $_SESSION["admin_logged_in"] = true;
+                $_SESSION["admin_id"] = $admin["id"];
+                $_SESSION["admin_username"] = $admin["username"];
+                $_SESSION["admin_role"] = $admin["role"];
+
+
+                /*
+                 * Automatically upgrade the password hash
+                 * if PHP recommends a newer/default hash.
+                 */
+                if (
+                    password_needs_rehash(
+                        $admin["password"],
+                        PASSWORD_DEFAULT
+                    )
+                ) {
+
+                    $newHash = password_hash(
+                        $password,
+                        PASSWORD_DEFAULT
+                    );
+
+                    $updatePassword = $db->prepare("
+                        UPDATE users
+                        SET password = :password
+                        WHERE id = :id
+                    ");
+
+                    $updatePassword->execute([
+                        ":password" => $newHash,
+                        ":id" => $admin["id"]
+                    ]);
+                }
+
+
+                header("Location: admin/dashboard.php");
+                exit;
+            }
+
+
+            /* ============================================
+               CUSTOMER LOGIN
+            ============================================ */
+
+            $logged_customer = $customer->login(
+                $identifier,
+                $password
             );
 
 
+            if ($logged_customer) {
+
+                /*
+                 * Prevent session mixing between
+                 * customer and administrator.
+                 */
+                unset(
+                    $_SESSION["admin_logged_in"],
+                    $_SESSION["admin_id"],
+                    $_SESSION["admin_username"],
+                    $_SESSION["admin_role"]
+                );
+
+                session_regenerate_id(true);
+
+
+                /*
+                 * Store customer information.
+                 */
+                $_SESSION["customer_id"] =
+                    $logged_customer["id"];
+
+                $_SESSION["customer_name"] =
+                    $logged_customer["full_name"];
+
+                $_SESSION["customer_email"] =
+                    $logged_customer["email"];
+
+
+                header("Location: index.php");
+                exit;
+            }
+
+
             /*
-             * Regenerate session ID after login.
+             * If neither admin nor customer login
+             * succeeded.
              */
-            session_regenerate_id(true);
+            $error = "Invalid username/email or password.";
 
+        } catch (PDOException $e) {
 
-            $_SESSION["admin_logged_in"] = true;
-            $_SESSION["admin_username"] = $adminUsername;
-
-
-            header("Location: admin/dashboard.php");
-            exit;
+            /*
+             * Do not expose database errors to users.
+             */
+            $error = "Unable to process login right now. Please try again.";
         }
-
-
-        /* ================================================
-           CUSTOMER LOGIN
-        ================================================ */
-
-        $logged_customer = $customer->login(
-            $identifier,
-            $password
-        );
-
-
-        if ($logged_customer) {
-
-            /*
-             * Prevent session mixing between
-             * customer and administrator.
-             */
-            unset(
-                $_SESSION["admin_logged_in"],
-                $_SESSION["admin_username"]
-            );
-
-
-            /*
-             * Regenerate session ID after login.
-             */
-            session_regenerate_id(true);
-
-
-            /*
-             * Store customer information.
-             */
-            $_SESSION["customer_id"] =
-                $logged_customer["id"];
-
-            $_SESSION["customer_name"] =
-                $logged_customer["full_name"];
-
-            $_SESSION["customer_email"] =
-                $logged_customer["email"];
-
-
-            header("Location: index.php");
-            exit;
-        }
-
-
-        /*
-         * If neither admin nor customer login
-         * succeeded.
-         */
-        $error = "Invalid username/email or password.";
     }
 }
 
