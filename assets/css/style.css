@@ -3156,7 +3156,7 @@ img {
 
     padding: 120px 20px 80px;
 
-    background: url("../images/pattern.png");
+    background: url("../images/shop-hero.png");
 
     background-size: cover;
     background-position: center;
@@ -3169,7 +3169,7 @@ img {
 
 
 .shop-hero-content span {
-    color: var(--navy);
+    color: var(--white);
 
     font-size: 15px;
 
@@ -3203,7 +3203,7 @@ img {
 
     margin: auto;
 
-    color: var(--navy);
+    color: var(--white);
 
     font-size: 17px;
 
