@@ -284,7 +284,7 @@ foreach (
 
             align-items: center;
 
-            background: #f8f8f8;
+            background: url("assets/images/pattern3.png");
 
             
 
@@ -314,9 +314,15 @@ foreach (
 
             border-radius: 22px;
 
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(184, 134, 44, 0.35);
+            border-radius: 14px;
 
-            background: #ffffff;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 27, 46, 0.96),
+                    rgba(13, 20, 35, 0.96)
+                );
 
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
         }
@@ -376,7 +382,7 @@ foreach (
 
             margin: 0;
 
-            color: #0e1423;
+            color: #ffffff;
 
             font-size: 42px;
 
