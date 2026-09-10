@@ -19,9 +19,7 @@ $reviewModel = new Review($db);
 $customer_logged_in = isset($_SESSION["customer_id"]);
 
 $customer_name = $_SESSION["customer_name"] ?? "";
-
 $customer_email = $_SESSION["customer_email"] ?? "";
-
 $customer_id = $_SESSION["customer_id"] ?? null;
 
 $success = "";
@@ -178,33 +176,17 @@ $customer_query =
         LIMIT 1
     ");
 
+$customer = null;
 
-$customer_query->execute([
+if ($customer_id) {
 
-    ":id" =>
-        $customer_id
+    $customer_query->execute([
+        ":id" => $customer_id
+    ]);
 
-]);
-
-
-$customer =
-    $customer_query->fetch(
+    $customer = $customer_query->fetch(
         PDO::FETCH_ASSOC
     );
-
-
-/* =========================================
-   SAFETY CHECK
-========================================= */
-
-if (!$customer) {
-
-    session_destroy();
-
-    header("Location: login.php");
-
-    exit();
-
 }
 
 
@@ -212,28 +194,24 @@ if (!$customer) {
    INITIAL
 ========================================= */
 
-$name_parts =
-    preg_split(
+$initials = "";
+
+if ($customer) {
+
+    $name_parts = preg_split(
         '/\s+/',
         trim($customer["full_name"])
     );
 
-
-$initials = "";
-
-
-foreach (
-    array_slice($name_parts, 0, 2)
-    as $part
-) {
-
-    $initials .=
-        strtoupper(
+    foreach (
+        array_slice($name_parts, 0, 2)
+        as $part
+    ) {
+        $initials .= strtoupper(
             substr($part, 0, 1)
         );
-
+    }
 }
-
 /* =========================================
    VARIABLES
 ========================================= */
