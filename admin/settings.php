@@ -259,8 +259,8 @@ if (
 
             background:
                 linear-gradient(
-                    rgba(14, 20, 35, 0.93),
-                    rgba(14, 20, 35, 0.93)
+                    rgba(8, 12, 22, 0.92),
+                    rgba(8, 12, 22, 0.96)
                 ),
                 url("../assets/images/pattern3.png");
 
@@ -274,6 +274,23 @@ if (
 
             min-height: 100vh;
 
+        }
+
+        /* =========================================================
+        BRAND COLORS
+        ========================================================= */
+
+        :root {
+            --navy: #0e1423;
+            --gold: #d9a82e;
+            --light-gold: #e8bd55;
+
+            --white: #ffffff;
+            --black: #111111;
+
+            --light-gray: #f5f5f5;
+            --gray: #cccccc;
+            --dark-gray: #555555;
         }
 
 
@@ -381,79 +398,6 @@ if (
 
 
         /* =====================================================
-           SIDEBAR
-        ===================================================== */
-
-        .sidebar {
-
-            width: 250px;
-
-            flex-shrink: 0;
-
-            background:
-                rgba(14, 20, 35, 0.96);
-
-            border-right:
-                1px solid rgba(
-                    184,
-                    134,
-                    44,
-                    0.35
-                );
-
-            padding: 30px 18px;
-
-        }
-
-
-        .sidebar-title {
-
-            color: #b8862c;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-
-            margin:
-                0 12px 20px;
-
-        }
-
-
-        .sidebar a {
-
-            display: block;
-
-            text-decoration: none;
-
-            color: #ccc;
-
-            padding: 14px 15px;
-
-            margin-bottom: 6px;
-
-            border-radius: 6px;
-
-            transition: 0.3s ease;
-
-        }
-
-
-        .sidebar a:hover,
-        .sidebar a.active {
-
-            background: #b8862c;
-
-            color: white;
-
-        }
-
-
-        /* =====================================================
            MAIN
         ===================================================== */
 
@@ -500,17 +444,12 @@ if (
         .message {
 
             background:
-                rgba(
-                    184,
-                    134,
-                    44,
-                    0.15
-                );
+                    rgba(23, 35, 21, 0.96);
 
             border:
-                1px solid #b8862c;
+                1px solid #2cb831;
 
-            color: #e4bd6c;
+            color: #2cb831;
 
             padding: 15px 20px;
 
@@ -527,7 +466,15 @@ if (
 
         .settings-card {
 
-            background: white;
+            border: 1px solid rgba(184, 134, 44, 0.35);
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18, 27, 46, 0.96),
+                    rgba(13, 20, 35, 0.96)
+                );
 
             color: #222;
 
@@ -558,7 +505,7 @@ if (
 
         .settings-section-title {
 
-            color: #0e1423;
+            color: var(--light-gold);
 
             font-size: 22px;
 
@@ -613,7 +560,7 @@ if (
 
         .form-group label {
 
-            color: #333;
+            color: #fff;
 
             font-weight: bold;
 
@@ -629,8 +576,18 @@ if (
 
             width: 100%;
 
+            background:
+                rgba(
+                    184,
+                    134,
+                    44,
+                    0.15
+                );
+
             border:
-                1px solid #ddd;
+                1px solid #b8862c;
+
+            color: #fff;
 
             border-radius: 6px;
 

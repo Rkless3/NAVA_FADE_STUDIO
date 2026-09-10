@@ -404,12 +404,12 @@ $reviews = $reviewModel->getAll();
         .message {
 
             background:
-                rgba(184, 134, 44, 0.15);
+                    rgba(23, 35, 21, 0.96);
 
             border:
-                1px solid #b8862c;
+                1px solid #2cb831;
 
-            color: #d19a2a;
+            color: #2cb831;
 
             padding: 15px 18px;
 
