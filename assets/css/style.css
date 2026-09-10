@@ -333,16 +333,16 @@ img {
 
     align-items: center;
 
-    transform: translate(-80px, 40px) scale(1.30);
+    transform: translate(-80px, 40px) scale(1.25);
 }
 
 
 .hero-image img {
-    transform: translate(-80px, 40px) scale(1.30);
+    transform: translate(-80px, 40px) scale(1.25);
 
     position: relative;
 
-    top: -60px;
+    top: -30px;
 
     width: 150%;
 
