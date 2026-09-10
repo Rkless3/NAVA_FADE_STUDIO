@@ -362,68 +362,6 @@ $reviews = $reviewModel->getAll();
 
 
         /* =====================================
-           SIDEBAR
-        ===================================== */
-
-        .sidebar {
-
-            width: 250px;
-
-            padding: 35px 20px;
-
-            background:
-                rgba(14, 20, 35, 0.95);
-
-            border-right:
-                1px solid
-                rgba(184, 134, 44, 0.5);
-        }
-
-
-        .sidebar-title {
-
-            margin-bottom: 25px;
-
-            padding-left: 15px;
-
-            color: #888;
-
-            font-size: 13px;
-
-            text-transform: uppercase;
-
-            letter-spacing: 2px;
-        }
-
-
-        .sidebar a {
-
-            display: block;
-
-            padding: 15px 18px;
-
-            margin-bottom: 8px;
-
-            border-radius: 10px;
-
-            color: #ffffff;
-
-            text-decoration: none;
-
-            transition: 0.3s ease;
-        }
-
-
-        .sidebar a:hover,
-        .sidebar a.active {
-
-            background: #b8862c;
-
-            color: #0e1423;
-        }
-
-
-        /* =====================================
            CONTENT
         ===================================== */
 
@@ -1058,9 +996,7 @@ $reviews = $reviewModel->getAll();
             </strong>
 
             Choose one approved review to display
-            in the homepage's
-            "We Are Happy to Make You Handsome"
-            section.
+            in the homepage's Reviews.
 
         </div>
 
