@@ -413,8 +413,20 @@ img {
     font-weight: 700;
 
     letter-spacing: 1px;
+
+    animation: ticker 25s linear infinite;
 }
 
+@keyframes ticker {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
 
 /* =========================================================
    SERVICES / PRICING
