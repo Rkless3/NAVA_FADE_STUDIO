@@ -33,6 +33,11 @@ $order_query = $db->prepare("
     SELECT
         id,
         total_amount,
+        delivery_method,
+        delivery_address,
+        delivery_contact,
+        delivery_landmark,
+        delivery_notes,
         status,
         created_at
     FROM orders
@@ -399,6 +404,86 @@ if (!empty($orders)) {
 
 
         /* =========================================
+           FULFILLMENT INFORMATION
+        ========================================= */
+
+        .order-fulfillment {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(200, 148, 47, 0.25);
+        }
+
+        .order-fulfillment-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .order-fulfillment-title h3 {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fulfillment-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: rgba(200, 148, 47, 0.15);
+            color: #d19a2a;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .fulfillment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .fulfillment-detail {
+            padding: 12px 14px;
+            border-radius: 9px;
+            background: rgba(14, 20, 35, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .fulfillment-detail.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .fulfillment-detail-label {
+            display: block;
+            color: #8f98aa;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            margin-bottom: 5px;
+        }
+
+        .fulfillment-detail-value {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .fulfillment-pickup-note {
+            color: #8f98aa;
+            font-size: 12px;
+            margin-top: 12px;
+        }
+
+
+        /* =========================================
            PAYMENT INFORMATION
         ========================================= */
 
@@ -686,6 +771,14 @@ if (!empty($orders)) {
                 font-size: 14px;
             }
 
+            .fulfillment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fulfillment-detail.full-width {
+                grid-column: auto;
+            }
+
             .payment-grid {
                 grid-template-columns: 1fr;
             }
@@ -889,6 +982,73 @@ if (!empty($orders)) {
                         </div>
 
                     <?php endforeach; ?>
+
+
+                    <!-- FULFILLMENT INFORMATION -->
+
+                    <div class="order-fulfillment">
+
+                        <div class="order-fulfillment-title">
+                            <h3>Order Fulfillment</h3>
+
+                            <span class="fulfillment-badge">
+                                <?= ($order["delivery_method"] ?? "pickup") === "delivery"
+                                    ? "Delivery"
+                                    : "Pickup" ?>
+                            </span>
+                        </div>
+
+                        <?php if (($order["delivery_method"] ?? "pickup") === "delivery"): ?>
+
+                            <div class="fulfillment-grid">
+
+                                <div class="fulfillment-detail full-width">
+                                    <span class="fulfillment-detail-label">Delivery Address</span>
+                                    <span class="fulfillment-detail-value">
+                                        <?= !empty($order["delivery_address"])
+                                            ? nl2br(htmlspecialchars($order["delivery_address"]))
+                                            : "Not provided" ?>
+                                    </span>
+                                </div>
+
+                                <div class="fulfillment-detail">
+                                    <span class="fulfillment-detail-label">Contact Number</span>
+                                    <span class="fulfillment-detail-value">
+                                        <?= !empty($order["delivery_contact"])
+                                            ? htmlspecialchars($order["delivery_contact"])
+                                            : "Not provided" ?>
+                                    </span>
+                                </div>
+
+                                <div class="fulfillment-detail">
+                                    <span class="fulfillment-detail-label">Landmark</span>
+                                    <span class="fulfillment-detail-value">
+                                        <?= !empty($order["delivery_landmark"])
+                                            ? htmlspecialchars($order["delivery_landmark"])
+                                            : "None provided" ?>
+                                    </span>
+                                </div>
+
+                                <div class="fulfillment-detail full-width">
+                                    <span class="fulfillment-detail-label">Delivery Notes</span>
+                                    <span class="fulfillment-detail-value">
+                                        <?= !empty($order["delivery_notes"])
+                                            ? nl2br(htmlspecialchars($order["delivery_notes"]))
+                                            : "No additional notes" ?>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        <?php else: ?>
+
+                            <div class="fulfillment-pickup-note">
+                                Your order will be prepared for pickup at NAVA Fade Studio.
+                            </div>
+
+                        <?php endif; ?>
+
+                    </div>
 
 
                     <!-- PAYMENT INFORMATION -->
