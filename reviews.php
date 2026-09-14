@@ -1690,7 +1690,6 @@ $reviewCount = count($approvedReviews);
 
         <div>
 
-
             <img
                 src="assets/images/logo.png"
                 class="footer-logo"
@@ -1699,20 +1698,60 @@ $reviewCount = count($approvedReviews);
 
 
             <p>
+
                 NAVA Fade Studio is dedicated to
-                delivering clean, modern, and
-                personalized grooming experiences.
+                <br>delivering clean, modern, and
+                <br>personalized grooming experiences.
+
             </p>
 
+                <div class="footer-socials">
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <img
+                            src="assets/images/facebook.png"
+                            alt="Facebook">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <img
+                            src="assets/images/instagram.png"
+                            alt="Instagram">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="X">
+
+                        <img
+                            src="assets/images/x-icon.png"
+                            alt="X">
+
+                    </a>
+
+
+                </div>
 
         </div>
 
 
 
-        <!-- ABOUT -->
+        <!-- ABOUT LINKS -->
 
         <div>
-
 
             <h3>
                 About
@@ -1723,26 +1762,17 @@ $reviewCount = count($approvedReviews);
                 About Us
             </a>
 
-
-            <a href="index.php#services">
+            <a href="#services">
                 Services
             </a>
-
 
             <a href="shop.php">
                 Shop
             </a>
 
-
-            <a href="reviews.php">
-                Reviews
-            </a>
-
-
             <a href="blog.php">
                 Blog
             </a>
-
 
         </div>
 
@@ -1751,7 +1781,6 @@ $reviewCount = count($approvedReviews);
         <!-- SUPPORT -->
 
         <div>
-
 
             <h3>
                 Support
@@ -1762,16 +1791,9 @@ $reviewCount = count($approvedReviews);
                 Who We Are
             </a>
 
-
-            <a href="index.php#services">
+            <a href="#services">
                 Our Services
             </a>
-
-
-            <a href="reviews.php">
-                Customer Reviews
-            </a>
-
 
             <a href="book.php">
                 Book Appointment
@@ -1781,7 +1803,6 @@ $reviewCount = count($approvedReviews);
                 Contact Us
             </a>
 
-
         </div>
 
 
@@ -1790,16 +1811,18 @@ $reviewCount = count($approvedReviews);
 
         <div>
 
-
             <h3>
                 Address
             </h3>
 
 
-            <p>📍 Amlan, Negros Oriental</p>
-            <p>📧 navafadestudio@gmail.com</p>
-            <p>📞 0969 407 4629</p>
+            <!-- KEEP YOUR EXISTING ADDRESS -->
 
+            <p>📍 Amlan, Negros Oriental</p>
+
+            <p>📧 navafadestudio@gmail.com</p>
+
+            <p>📞 0969 407 4629</p>
 
         </div>
 
@@ -1808,7 +1831,6 @@ $reviewCount = count($approvedReviews);
 
 
 </footer>
-
 
 
 <script>

@@ -224,11 +224,13 @@ if ($customer_logged_in) {
         ===================================================== */
 
         .blog-card {
-            background: white;
+            background: #0e1423;
 
             border-radius: 10px;
 
             overflow: hidden;
+
+            border: 5px solid #0e1423;
 
             box-shadow:
                 0 8px 30px
@@ -299,7 +301,7 @@ if ($customer_logged_in) {
 
 
         .blog-card h3 {
-            color: #0e1423;
+            color: #fff;
 
             font-size: 22px;
 
@@ -310,7 +312,7 @@ if ($customer_logged_in) {
 
 
         .blog-card p {
-            color: #666;
+            color: #ccc;
 
             line-height: 1.7;
 
@@ -321,7 +323,7 @@ if ($customer_logged_in) {
         .blog-date {
             display: block;
 
-            color: #999;
+            color: #b8862c;
 
             font-size: 13px;
 
@@ -332,7 +334,7 @@ if ($customer_logged_in) {
         .read-more {
             display: inline-block;
 
-            color: #0e1423;
+            color: #fff;
 
             font-weight: bold;
 
@@ -446,74 +448,6 @@ if ($customer_logged_in) {
 
 
         /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        .blog-footer {
-            background: #0e1423;
-
-            color: white;
-
-            padding: 60px 8%;
-        }
-
-
-        .blog-footer-content {
-            max-width: 1200px;
-
-            margin: auto;
-
-            display: grid;
-
-            grid-template-columns:
-                1.5fr 1fr 1fr 1fr;
-
-            gap: 40px;
-        }
-
-
-        .blog-footer-logo {
-            width: 150px;
-
-            height: auto;
-
-            margin-bottom: 15px;
-        }
-
-
-        .blog-footer h3 {
-            color: #b8862c;
-
-            margin-bottom: 18px;
-        }
-
-
-        .blog-footer p {
-            color: #ccc;
-
-            line-height: 1.7;
-        }
-
-
-        .blog-footer a {
-            display: block;
-
-            color: #ccc;
-
-            text-decoration: none;
-
-            margin-bottom: 10px;
-
-            transition: 0.3s ease;
-        }
-
-
-        .blog-footer a:hover {
-            color: #b8862c;
-        }
-
-
-        /* =====================================================
            RESPONSIVE
         ===================================================== */
 
@@ -609,7 +543,7 @@ if ($customer_logged_in) {
 
         <nav>
 
-            <a href="index.php" class="active">
+            <a href="index.php">
                 Home
             </a>
 
@@ -629,7 +563,7 @@ if ($customer_logged_in) {
                 Shop
             </a>
 
-            <a href="blog.php">
+            <a href="blog.php" class="active">
                 Blog
             </a>
 
@@ -896,7 +830,7 @@ if ($customer_logged_in) {
             <div class="blog-card-image">
 
                 <img
-                    src="assets/images/beard-trimming.png"
+                    src="assets/images/beard-trim.png"
                     alt="Beard grooming"
                 >
 
@@ -1035,7 +969,7 @@ if ($customer_logged_in) {
             <div class="blog-card-image">
 
                 <img
-                    src="assets/images/beard-trimming.png"
+                    src="assets/images/hair-cut.png"
                     alt="Barber grooming"
                 >
 
@@ -1081,7 +1015,7 @@ if ($customer_logged_in) {
             <div class="blog-card-image">
 
                 <img
-                    src="assets/images/hair-clay.png"
+                    src="assets/images/hair-styling.png"
                     alt="Hair styling"
                 >
 
@@ -1175,27 +1109,76 @@ if ($customer_logged_in) {
      FOOTER
 ===================================================== -->
 
-<footer class="blog-footer">
+<footer class="footer">
 
-    <div class="blog-footer-content">
 
+    <div class="footer-content">
+
+
+        <!-- BRAND -->
 
         <div>
 
             <img
                 src="assets/images/logo.png"
-                class="blog-footer-logo"
+                class="footer-logo"
                 alt="NAVA Fade Studio Logo"
             >
 
+
             <p>
+
                 NAVA Fade Studio is dedicated to
-                delivering clean, modern, and
-                personalized grooming experiences.
+                <br>delivering clean, modern, and
+                <br>personalized grooming experiences.
+
             </p>
+
+                <div class="footer-socials">
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <img
+                            src="assets/images/facebook.png"
+                            alt="Facebook">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <img
+                            src="assets/images/instagram.png"
+                            alt="Instagram">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="X">
+
+                        <img
+                            src="assets/images/x-icon.png"
+                            alt="X">
+
+                    </a>
+
+
+                </div>
 
         </div>
 
+
+
+        <!-- ABOUT LINKS -->
 
         <div>
 
@@ -1203,11 +1186,12 @@ if ($customer_logged_in) {
                 About
             </h3>
 
+
             <a href="about.php">
                 About Us
             </a>
 
-            <a href="index.php#services">
+            <a href="#services">
                 Services
             </a>
 
@@ -1222,49 +1206,58 @@ if ($customer_logged_in) {
         </div>
 
 
+
+        <!-- SUPPORT -->
+
         <div>
 
             <h3>
                 Support
             </h3>
 
+
             <a href="about.php">
                 Who We Are
+            </a>
+
+            <a href="#services">
+                Our Services
             </a>
 
             <a href="book.php">
                 Book Appointment
             </a>
 
-            <a href="reviews.php">
-                Reviews
+            <a href="#">
+                Contact Us
             </a>
 
         </div>
 
 
+
+        <!-- ADDRESS -->
+
         <div>
 
             <h3>
-                Contact
+                Address
             </h3>
 
-            <p>
-                📍 Amlan, Negros Oriental
-            </p>
 
-            <p>
-                📧 navafadestudio@gmail.com
-            </p>
+            <!-- KEEP YOUR EXISTING ADDRESS -->
 
-            <p>
-                📞 0969 407 4629
-            </p>
+            <p>📍 Amlan, Negros Oriental</p>
+
+            <p>📧 navafadestudio@gmail.com</p>
+
+            <p>📞 0969 407 4629</p>
 
         </div>
 
 
     </div>
+
 
 </footer>
 

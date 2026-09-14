@@ -185,12 +185,12 @@ if ($customer_id !== null) {
             PDO::FETCH_ASSOC
         );
 
-    /* =========================================
+    /* 
        SAFETY CHECK
        If the customer record no longer exists,
        clear the invalid customer session but
        KEEP THE USER ON index.php.
-    ========================================= */
+    */
 
     if (!$customer) {
         unset(
@@ -203,9 +203,9 @@ if ($customer_id !== null) {
     }
 }
 
-/* =========================================
+/* 
    INITIALS FOR LOGGED-IN CUSTOMER
-========================================= */
+*/
 
 if ($customer) {
 
@@ -447,7 +447,6 @@ if ($customer) {
     </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -1030,6 +1029,51 @@ if ($customer) {
 
 
 <!-- =====================================================
+     BOOKING CTA
+===================================================== -->
+
+<section class="about-booking-cta">
+
+    <div class="about-booking-card">
+
+        <div class="about-booking-overlay"></div>
+
+        <div class="about-booking-content">
+
+            <span class="booking-label">
+                READY FOR A FRESH LOOK?
+            </span>
+
+            <h2>
+                GET <span>20% OFF</span>
+                <br>
+                YOUR FIRST BOOKING
+            </h2>
+
+            <div class="booking-line"></div>
+
+            <p>
+                Book your appointment with NAVA Fade Studio
+                and enjoy 20% off your first visit.
+            </p>
+
+            <p>
+                Let our skilled barbers give you a clean,
+                sharp, and confident style tailored just for you.
+            </p>
+
+            <a href="book.php" class="booking-cta-button">
+                BOOK AN APPOINTMENT
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      LATEST BLOGS
 ===================================================== -->
 
@@ -1185,401 +1229,6 @@ if ($customer) {
 </section>
 
 
-<style>
-
-/* =====================================================
-   HOMEPAGE BLOG
-===================================================== */
-
-.home-blog {
-
-    padding:
-        100px 8%;
-
-    background:
-        #f8f8f8;
-
-}
-
-
-.home-blog-header {
-
-    max-width:
-        750px;
-
-    margin:
-        0 auto 55px;
-
-    text-align:
-        center;
-
-}
-
-
-.home-blog-header span {
-
-    color:
-        #b8862c;
-
-    font-size:
-        13px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        3px;
-
-}
-
-
-.home-blog-header h2 {
-
-    color:
-        #0e1423;
-
-    font-size:
-        clamp(
-            34px,
-            5vw,
-            48px
-        );
-
-    margin:
-        12px 0;
-
-}
-
-
-.home-blog-header h2 strong {
-
-    color:
-        #b8862c;
-
-}
-
-
-.home-blog-header p {
-
-    color:
-        #666;
-
-    line-height:
-        1.8;
-
-}
-
-
-.home-blog-grid {
-
-    max-width:
-        1200px;
-
-    margin:
-        auto;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap:
-        30px;
-
-}
-
-
-.home-blog-card {
-
-    background:
-        white;
-
-    border-radius:
-        10px;
-
-    overflow:
-        hidden;
-
-    box-shadow:
-        0 8px 30px
-        rgba(
-            0,
-            0,
-            0,
-            0.08
-        );
-
-    transition:
-        0.3s ease;
-
-}
-
-
-.home-blog-card:hover {
-
-    transform:
-        translateY(-7px);
-
-    box-shadow:
-        0 15px 40px
-        rgba(
-            0,
-            0,
-            0,
-            0.13
-        );
-
-}
-
-
-.home-blog-image {
-
-    height:
-        220px;
-
-    overflow:
-        hidden;
-
-}
-
-
-.home-blog-image img {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    object-fit:
-        cover;
-
-    transition:
-        transform 0.4s ease;
-
-}
-
-
-.home-blog-card:hover
-.home-blog-image img {
-
-    transform:
-        scale(1.06);
-
-}
-
-
-.home-blog-content {
-
-    padding:
-        28px;
-
-}
-
-
-.home-blog-content span {
-
-    color:
-        #b8862c;
-
-    font-size:
-        12px;
-
-    font-weight:
-        bold;
-
-    letter-spacing:
-        1.5px;
-
-}
-
-
-.home-blog-content h3 {
-
-    color:
-        #0e1423;
-
-    font-size:
-        21px;
-
-    line-height:
-        1.4;
-
-    margin:
-        12px 0;
-
-}
-
-
-.home-blog-content p {
-
-    color:
-        #666;
-
-    line-height:
-        1.7;
-
-    margin-bottom:
-        20px;
-
-}
-
-
-.home-blog-content a {
-
-    color:
-        #0e1423;
-
-    text-decoration:
-        none;
-
-    font-weight:
-        bold;
-
-    border-bottom:
-        2px solid #b8862c;
-
-    padding-bottom:
-        4px;
-
-}
-
-
-.home-blog-content a:hover {
-
-    color:
-        #b8862c;
-
-}
-
-
-.home-blog-button {
-
-    text-align:
-        center;
-
-    margin-top:
-        45px;
-
-}
-
-
-.home-blog-button a {
-
-    display:
-        inline-block;
-
-    background:
-        #0e1423;
-
-    color:
-        white;
-
-    text-decoration:
-        none;
-
-    padding:
-        14px 30px;
-
-    border-radius:
-        5px;
-
-    font-weight:
-        bold;
-
-    transition:
-        0.3s ease;
-
-}
-
-
-.home-blog-button a:hover {
-
-    background:
-        #b8862c;
-
-}
-
-
-@media (max-width: 900px) {
-
-    .home-blog-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .home-blog {
-
-        padding:
-            70px 6%;
-
-    }
-
-
-    .home-blog-grid {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-}
-
-</style>
-
-
-<!-- =====================================================
-     BOOKING CTA
-===================================================== -->
-
-<section class="about-booking-cta">
-
-    <div class="about-booking-card">
-
-        <div class="about-booking-overlay"></div>
-
-        <div class="about-booking-content">
-
-            <span class="booking-label">
-                READY FOR A FRESH LOOK?
-            </span>
-
-            <h2>
-                GET <span>20% OFF</span>
-                <br>
-                YOUR FIRST BOOKING
-            </h2>
-
-            <div class="booking-line"></div>
-
-            <p>
-                Book your appointment with NAVA Fade Studio
-                and enjoy 20% off your first visit.
-            </p>
-
-            <p>
-                Let our skilled barbers give you a clean,
-                sharp, and confident style tailored just for you.
-            </p>
-
-            <a href="book.php" class="booking-cta-button">
-                BOOK AN APPOINTMENT
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
 
 <!-- =====================================================
      FOOTER
@@ -1605,10 +1254,50 @@ if ($customer) {
             <p>
 
                 NAVA Fade Studio is dedicated to
-                delivering clean, modern, and
-                personalized grooming experiences.
+                <br>delivering clean, modern, and
+                <br>personalized grooming experiences.
 
             </p>
+
+                <div class="footer-socials">
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <img
+                            src="assets/images/facebook.png"
+                            alt="Facebook">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <img
+                            src="assets/images/instagram.png"
+                            alt="Instagram">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="X">
+
+                        <img
+                            src="assets/images/x-icon.png"
+                            alt="X">
+
+                    </a>
+
+
+                </div>
 
         </div>
 
@@ -1743,6 +1432,361 @@ document.addEventListener(
 );
 
 </script>
+
+
+<style>
+
+/* =====================================================
+   HOMEPAGE BLOG
+===================================================== */
+
+.home-blog {
+
+    padding:
+        100px 8%;
+
+    background-image:
+        
+        url("assets/images/pattern3.png");
+    background-size: cover;
+    background-position: center;
+
+}
+
+
+.home-blog-header {
+
+    max-width:
+        750px;
+
+    margin:
+        0 auto 55px;
+
+    text-align:
+        center;
+
+}
+
+
+.home-blog-header span {
+
+    color:
+        #b8862c;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        3px;
+
+}
+
+
+.home-blog-header h2 {
+
+    color:
+        #fff;
+
+    font-size:
+        clamp(
+            34px,
+            5vw,
+            48px
+        );
+
+    margin:
+        12px 0;
+
+}
+
+
+.home-blog-header h2 strong {
+
+    color:
+        #b8862c;
+
+}
+
+
+.home-blog-header p {
+
+    color:
+        #666;
+
+    line-height:
+        1.8;
+
+}
+
+
+.home-blog-grid {
+
+    max-width:
+        1200px;
+
+    margin:
+        auto;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        30px;
+
+}
+
+
+.home-blog-card {
+
+    background:
+        white;
+
+    overflow:
+        hidden;
+
+    border: 5px solid #b8862c;
+
+    border-radius: 18px;
+
+    box-shadow:
+                0 8px 40px
+                rgba(220, 178, 112, 0.08);
+
+    transition: 0.3s ease;
+
+}
+
+
+.home-blog-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border: 4px solid;
+
+    box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.08);
+
+    border-color: #d9a82e;
+
+}
+
+
+.home-blog-image {
+
+    height:
+        220px;
+
+    overflow:
+        hidden;
+
+}
+
+
+.home-blog-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    transition: 0.4s ease;
+
+}
+
+
+.home-blog-card:hover
+.home-blog-image img {
+
+    transform:
+        scale(1.06);
+
+}
+
+
+.home-blog-content {
+
+    padding:
+        28px;
+
+}
+
+
+.home-blog-content span {
+
+    color:
+        #b8862c;
+
+    font-size:
+        12px;
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        1.5px;
+
+}
+
+
+.home-blog-content h3 {
+
+    color:
+        #0e1423;
+
+    font-size:
+        21px;
+
+    line-height:
+        1.4;
+
+    margin:
+        12px 0;
+
+}
+
+
+.home-blog-content p {
+
+    color:
+        #666;
+
+    line-height:
+        1.7;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.home-blog-content a {
+
+    color:
+        #0e1423;
+
+    text-decoration:
+        none;
+
+    font-weight:
+        bold;
+
+    border-bottom:
+        2px solid #b8862c;
+
+    padding-bottom:
+        4px;
+
+}
+
+
+.home-blog-content a:hover {
+
+    color:
+        #b8862c;
+
+}
+
+
+.home-blog-button {
+
+    text-align:
+        center;
+
+    margin-top:
+        45px;
+
+}
+
+
+.home-blog-button a {
+
+    display:
+        inline-block;
+
+    background:
+        #b8862c;
+
+    color:
+        white;
+
+    text-decoration:
+        none;
+
+    padding:
+        14px 30px;
+
+    border-radius:
+        5px;
+
+    font-weight:
+        bold;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+.home-blog-button a:hover {
+
+    background: transparent;
+
+    color: #e1aa32;
+
+    border: 2px solid #b8862c;
+
+    border-radius: 8px;
+
+    transform: translateY(-3px);
+}
+
+
+@media (max-width: 900px) {
+
+    .home-blog-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .home-blog {
+
+        padding:
+            70px 6%;
+
+    }
+
+
+    .home-blog-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
 
 
 </body>
