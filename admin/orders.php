@@ -336,7 +336,7 @@ foreach ($orders as $order) {
 
         table {
             width: 100%;
-            min-width: 1350px;
+            min-width: 1600px;
             border-collapse: collapse;
         }
 
@@ -447,6 +447,48 @@ foreach ($orders as $order) {
         .payment-failed {
             background: rgba(244, 67, 54, 0.15);
             color: #f44336;
+        }
+
+        .fulfillment-box {
+            min-width: 230px;
+            line-height: 1.6;
+        }
+
+        .fulfillment-method {
+            display: inline-block;
+            padding: 6px 10px;
+            margin-bottom: 8px;
+            border-radius: 20px;
+            background: rgba(184, 134, 44, 0.15);
+            color: #d5a63a;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fulfillment-row {
+            margin-bottom: 7px;
+        }
+
+        .fulfillment-label {
+            color: #8f98aa;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .fulfillment-value {
+            color: #f1f1f1;
+            font-size: 13px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .fulfillment-notes {
+            color: #b9c0cd;
+            font-size: 12px;
+            line-height: 1.45;
         }
 
         .payment-box {
@@ -613,6 +655,7 @@ foreach ($orders as $order) {
                             <th>Customer</th>
                             <th>Products</th>
                             <th>Total</th>
+                            <th>Fulfillment</th>
                             <th>Payment</th>
                             <th>Payment Status</th>
                             <th>Order Status</th>
@@ -698,6 +741,100 @@ foreach ($orders as $order) {
                                     ) ?>
                                 </div>
                             </td>
+
+                            <!-- FULFILLMENT -->
+                            <td>
+
+                                <div class="fulfillment-box">
+
+                                    <span class="fulfillment-method">
+                                        <?= ($order["delivery_method"] ?? "pickup") === "delivery"
+                                            ? "Delivery"
+                                            : "Pickup" ?>
+                                    </span>
+
+
+                                    <?php if (($order["delivery_method"] ?? "pickup") === "delivery"): ?>
+
+                                        <?php if (!empty($order["delivery_address"])): ?>
+
+                                            <div class="fulfillment-row">
+
+                                                <div class="fulfillment-label">
+                                                    Address
+                                                </div>
+
+                                                <div class="fulfillment-value">
+                                                    <?= nl2br(htmlspecialchars($order["delivery_address"])) ?>
+                                                </div>
+
+                                            </div>
+
+                                        <?php endif; ?>
+
+
+                                        <?php if (!empty($order["delivery_contact"])): ?>
+
+                                            <div class="fulfillment-row">
+
+                                                <div class="fulfillment-label">
+                                                    Contact
+                                                </div>
+
+                                                <div class="fulfillment-value">
+                                                    <?= htmlspecialchars($order["delivery_contact"]) ?>
+                                                </div>
+
+                                            </div>
+
+                                        <?php endif; ?>
+
+
+                                        <?php if (!empty($order["delivery_landmark"])): ?>
+
+                                            <div class="fulfillment-row">
+
+                                                <div class="fulfillment-label">
+                                                    Landmark
+                                                </div>
+
+                                                <div class="fulfillment-value">
+                                                    <?= htmlspecialchars($order["delivery_landmark"]) ?>
+                                                </div>
+
+                                            </div>
+
+                                        <?php endif; ?>
+
+
+                                        <?php if (!empty($order["delivery_notes"])): ?>
+
+                                            <div class="fulfillment-row">
+
+                                                <div class="fulfillment-label">
+                                                    Notes
+                                                </div>
+
+                                                <div class="fulfillment-notes">
+                                                    <?= nl2br(htmlspecialchars($order["delivery_notes"])) ?>
+                                                </div>
+
+                                            </div>
+
+                                        <?php endif; ?>
+
+                                    <?php else: ?>
+
+                                        <div class="fulfillment-value">
+                                            Customer will pick up the order.
+                                        </div>
+
+                                    <?php endif; ?>
+
+                                </div>
+
+                            </td>
+
 
                             <!-- PAYMENT METHOD / REFERENCE -->
                             <td>
