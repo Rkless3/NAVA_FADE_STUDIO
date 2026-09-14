@@ -145,9 +145,28 @@ COLLATE=utf8mb4_general_ci;
 -- =========================================================
 
 CREATE TABLE orders (
+
     id INT(11) NOT NULL AUTO_INCREMENT,
+
     customer_id INT(11) NOT NULL,
+
     total_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+
+    -- ORDER FULFILLMENT
+    delivery_method ENUM(
+        'pickup',
+        'delivery'
+    ) NOT NULL DEFAULT 'pickup',
+
+    delivery_address TEXT DEFAULT NULL,
+
+    delivery_contact VARCHAR(30) DEFAULT NULL,
+
+    delivery_landmark VARCHAR(255) DEFAULT NULL,
+
+    delivery_notes TEXT DEFAULT NULL,
+
+    -- ORDER STATUS
     status ENUM(
         'Pending',
         'Confirmed',
@@ -155,18 +174,27 @@ CREATE TABLE orders (
         'Completed',
         'Cancelled'
     ) NOT NULL DEFAULT 'Pending',
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (id),
 
     CONSTRAINT fk_orders_customer
-        FOREIGN KEY (customer_id)
-        REFERENCES customers(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+
+    FOREIGN KEY (customer_id)
+
+    REFERENCES customers(id)
+
+    ON DELETE CASCADE
+
+    ON UPDATE CASCADE
+
 ) ENGINE=InnoDB
+
 DEFAULT CHARSET=utf8mb4
+
 COLLATE=utf8mb4_general_ci;
+
 
 
 -- =========================================================
