@@ -158,7 +158,8 @@ img {
     min-height: 850px;
 
     background:
-        url("../images/patterns.png");
+        
+        url("../images/pattern3.png");
 
     background-size: cover;
     background-position: center;
@@ -1311,7 +1312,7 @@ img {
 .footer {
     width: 100%;
 
-    min-height: 150px;
+    min-height: 100px;
 
     background: var(--navy);
 
@@ -1325,9 +1326,12 @@ img {
 
     max-width: 1760px;
 
+    justify-content: space-between;
+    align-items: flex-start;
+
     margin: auto;
 
-    display: grid;
+    display: flex;
 
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
 
@@ -1372,6 +1376,64 @@ img {
 
 .footer a:hover {
     color: var(--gold);
+}
+
+/* =========================================================
+   SOCIALS
+   ========================================================= */
+
+.footer-socials {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+
+.footer-socials a {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: fixed #0e1423;
+
+    border: 1px solid #b8862c;
+
+    text-decoration: none;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.footer-socials img {
+    width: 20px;
+    height: 20px;
+
+    object-fit: contain;
+
+    transition: 0.25s ease;
+}
+
+
+.footer-socials a:hover {
+    background: #b8862c;
+
+    border-color: #b8862c;
+
+    transform: translateY(-3px);
+}
+
+
+.footer-socials a:hover img {
+    filter: brightness(1) invert(0);
 }
 
 
@@ -1889,7 +1951,12 @@ img {
     align-items: center;
     justify-content: center;
     padding: 60px 20px;
-    background: #0e1423;
+    background: 
+  
+            url("assets/images/pattern3.png");
+    
+    background-size: cover;
+    background-position: center;
 }
 
 .booking-container {
@@ -4245,9 +4312,13 @@ img {
     min-height: 100vh;
     padding: 70px 8%;
     background:
-        url("../images/pattern2.png")
+        linear-gradient(
+                    rgba(14, 20, 35, 0.90),
+                    rgba(14, 20, 35, 0.90)
+                ),
+        url("../images/pattern3.png")
         center center / cover fixed;
-    color: #ffffff;
+    
 }
 
 
