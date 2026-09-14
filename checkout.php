@@ -207,6 +207,16 @@ $payment_method = $_POST["payment_method"] ?? "";
 
 $reference_number = trim($_POST["reference_number"] ?? "");
 
+/* =========================================
+   PICKUP / DELIVERY VARIABLES
+========================================= */
+
+$delivery_method = $_POST["delivery_method"] ?? "pickup";
+$delivery_address = trim($_POST["delivery_address"] ?? "");
+$delivery_contact = trim($_POST["delivery_contact"] ?? "");
+$delivery_landmark = trim($_POST["delivery_landmark"] ?? "");
+$delivery_notes = trim($_POST["delivery_notes"] ?? "");
+
 
 /* =========================================
    PLACE ORDER
@@ -236,6 +246,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         } else {
             $reference_number = null;
+        }
+
+
+        /* =====================================
+           VALIDATE PICKUP / DELIVERY
+        ===================================== */
+
+        if (!in_array($delivery_method, ["pickup", "delivery"], true)) {
+            throw new Exception("Please select a valid order fulfillment method.");
+        }
+
+        if ($delivery_method === "delivery") {
+            if ($delivery_address === "") {
+                throw new Exception("Please enter your delivery address.");
+            }
+
+            if ($delivery_contact === "") {
+                throw new Exception("Please enter your delivery contact number.");
+            }
+
+            if (!preg_match('/^[0-9+()\-\s]{7,30}$/', $delivery_contact)) {
+                throw new Exception("Please enter a valid delivery contact number.");
+            }
+        } else {
+            $delivery_address = null;
+            $delivery_contact = null;
+            $delivery_landmark = null;
+            $delivery_notes = null;
         }
 
 
@@ -296,12 +334,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             (
                 customer_id,
                 total_amount,
+                delivery_method,
+                delivery_address,
+                delivery_contact,
+                delivery_landmark,
+                delivery_notes,
                 status
             )
             VALUES
             (
                 :customer_id,
                 :total_amount,
+                :delivery_method,
+                :delivery_address,
+                :delivery_contact,
+                :delivery_landmark,
+                :delivery_notes,
                 'Pending'
             )
         ";
@@ -320,6 +368,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ":total_amount",
             $total
         );
+
+        $orderStmt->bindValue(":delivery_method", $delivery_method);
+        $orderStmt->bindValue(":delivery_address", $delivery_address, $delivery_address === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $orderStmt->bindValue(":delivery_contact", $delivery_contact, $delivery_contact === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $orderStmt->bindValue(":delivery_landmark", $delivery_landmark, $delivery_landmark === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $orderStmt->bindValue(":delivery_notes", $delivery_notes, $delivery_notes === null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
 
         $orderStmt->execute();
@@ -1067,6 +1121,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         /* =====================================================
+           PICKUP / DELIVERY
+        ===================================================== */
+
+        .fulfillment-section { margin-top: 28px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.10); }
+        .fulfillment-section h3 { margin: 0 0 16px; color: #ffffff; font-size: 18px; font-weight: 800; }
+        .fulfillment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .fulfillment-option { position: relative; }
+        .fulfillment-option input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+        .fulfillment-option label { min-height: 78px; display: flex; align-items: center; gap: 13px; padding: 15px; border: 1px solid #354057; border-radius: 11px; background: #11182a; color: #ffffff; cursor: pointer; transition: 0.2s ease; }
+        .fulfillment-option label:hover { border-color: #b8862c; }
+        .fulfillment-option input[type="radio"]:checked + label { border-color: #d4a33a; background: rgba(184,134,44,0.10); box-shadow: 0 0 0 1px rgba(212,163,58,0.15); }
+        .fulfillment-icon { width: 38px; height: 38px; min-width: 38px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: rgba(184,134,44,0.14); border: 1px solid rgba(184,134,44,0.35); color: #d4a33a; font-weight: 900; font-size: 17px; }
+        .fulfillment-copy { display: flex; flex-direction: column; gap: 4px; }
+        .fulfillment-copy strong { color: #ffffff; font-size: 14px; }
+        .fulfillment-copy span { color: #8f97a9; font-size: 11px; line-height: 1.4; }
+        .delivery-fields { margin-top: 15px; padding: 18px; background: rgba(17,24,42,0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 11px; }
+        .delivery-fields[hidden] { display: none; }
+        .delivery-field { margin-bottom: 14px; }
+        .delivery-field:last-child { margin-bottom: 0; }
+        .delivery-field label { display: block; margin-bottom: 7px; color: #d5dae5; font-size: 12px; font-weight: 700; }
+        .delivery-field label span { color: #d4a33a; }
+        .delivery-field input, .delivery-field textarea { width: 100%; padding: 11px 13px; border: 1px solid #354057; border-radius: 9px; outline: none; background: #0f1627; color: #ffffff; font-family: inherit; font-size: 14px; transition: 0.2s ease; }
+        .delivery-field input { height: 45px; }
+        .delivery-field textarea { min-height: 85px; resize: vertical; }
+        .delivery-field input:focus, .delivery-field textarea:focus { border-color: #d4a33a; box-shadow: 0 0 0 3px rgba(212,163,58,0.08); }
+        .delivery-note { margin-top: 10px; color: #8f97a9; font-size: 11px; line-height: 1.5; }
+
+
+        /* =====================================================
            PAYMENT METHOD
         ===================================================== */
 
@@ -1680,6 +1763,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
 
+            .fulfillment-options,
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .delivery-fields {
+                padding: 15px;
+            }
+
+
             .customer-info-row {
 
                 gap: 12px;
@@ -1937,6 +2030,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
             <div class="success-detail">
+                <span>Fulfillment</span>
+                <span><?= $delivery_method === "delivery" ? "Delivery" : "Pickup" ?></span>
+            </div>
+
+            <?php if ($delivery_method === "delivery"): ?>
+                <div class="success-detail"><span>Delivery Address</span><span><?= htmlspecialchars($delivery_address ?? "") ?></span></div>
+                <div class="success-detail"><span>Contact Number</span><span><?= htmlspecialchars($delivery_contact ?? "") ?></span></div>
+                <?php if (!empty($delivery_landmark)): ?>
+                    <div class="success-detail"><span>Landmark</span><span><?= htmlspecialchars($delivery_landmark) ?></span></div>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <div class="success-detail">
 
                 <span>
                     Payment Method
@@ -2181,6 +2287,49 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
 
+            <!-- ORDER FULFILLMENT -->
+
+            <div class="fulfillment-section">
+                <h3>Order Fulfillment</h3>
+                <div class="fulfillment-options">
+                    <div class="fulfillment-option">
+                        <input type="radio" id="delivery_pickup" name="delivery_method" value="pickup" <?= $delivery_method === "pickup" ? "checked" : "" ?> form="checkoutForm" required>
+                        <label for="delivery_pickup">
+                            <span class="fulfillment-icon">⌂</span>
+                            <span class="fulfillment-copy"><strong>Pickup</strong><span>Pick up your order from NAVA Fade Studio.</span></span>
+                        </label>
+                    </div>
+                    <div class="fulfillment-option">
+                        <input type="radio" id="delivery_delivery" name="delivery_method" value="delivery" <?= $delivery_method === "delivery" ? "checked" : "" ?> form="checkoutForm" required>
+                        <label for="delivery_delivery">
+                            <span class="fulfillment-icon">▣</span>
+                            <span class="fulfillment-copy"><strong>Delivery</strong><span>Have your order delivered to your address.</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="delivery-fields" id="deliveryFields" <?= $delivery_method === "delivery" ? "" : "hidden" ?>>
+                    <div class="delivery-field">
+                        <label for="delivery_address">Delivery Address <span>*</span></label>
+                        <textarea id="delivery_address" name="delivery_address" form="checkoutForm" placeholder="Enter your complete delivery address"><?= htmlspecialchars($delivery_address) ?></textarea>
+                    </div>
+                    <div class="delivery-field">
+                        <label for="delivery_contact">Contact Number <span>*</span></label>
+                        <input type="text" id="delivery_contact" name="delivery_contact" form="checkoutForm" maxlength="30" placeholder="e.g. 09XXXXXXXXX" value="<?= htmlspecialchars($delivery_contact) ?>">
+                    </div>
+                    <div class="delivery-field">
+                        <label for="delivery_landmark">Landmark</label>
+                        <input type="text" id="delivery_landmark" name="delivery_landmark" form="checkoutForm" maxlength="255" placeholder="Optional landmark" value="<?= htmlspecialchars($delivery_landmark) ?>">
+                    </div>
+                    <div class="delivery-field">
+                        <label for="delivery_notes">Delivery Notes</label>
+                        <textarea id="delivery_notes" name="delivery_notes" form="checkoutForm" placeholder="Optional instructions for the delivery"><?= htmlspecialchars($delivery_notes) ?></textarea>
+                    </div>
+                    <p class="delivery-note">Please make sure your delivery address and contact number are correct before placing your order.</p>
+                </div>
+            </div>
+
+
             <!-- PAYMENT METHOD -->
 
             <div class="payment-section">
@@ -2418,26 +2567,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     const referenceField = document.getElementById("gcashReference");
     const referenceInput = document.getElementById("reference_number");
 
-    if (!cash || !gcash || !referenceField || !referenceInput) {
-        return;
-    }
-
     function updatePaymentFields() {
-
+        if (!cash || !gcash || !referenceField || !referenceInput) return;
         const isGCash = gcash.checked;
-
         referenceField.classList.toggle("show", isGCash);
         referenceInput.required = isGCash;
-
-        if (!isGCash) {
-            referenceInput.value = "";
-        }
+        if (!isGCash) referenceInput.value = "";
     }
 
-    cash.addEventListener("change", updatePaymentFields);
-    gcash.addEventListener("change", updatePaymentFields);
+    if (cash && gcash) {
+        cash.addEventListener("change", updatePaymentFields);
+        gcash.addEventListener("change", updatePaymentFields);
+    }
+
+    const fulfillmentRadios = document.querySelectorAll('input[name="delivery_method"]');
+    const deliveryFields = document.getElementById("deliveryFields");
+    const deliveryAddress = document.getElementById("delivery_address");
+    const deliveryContact = document.getElementById("delivery_contact");
+
+    function updateDeliveryFields() {
+        if (!deliveryFields) return;
+        const selected = document.querySelector('input[name="delivery_method"]:checked')?.value;
+        const isDelivery = selected === "delivery";
+        deliveryFields.hidden = !isDelivery;
+        if (deliveryAddress) deliveryAddress.required = isDelivery;
+        if (deliveryContact) deliveryContact.required = isDelivery;
+    }
+
+    fulfillmentRadios.forEach(function (radio) {
+        radio.addEventListener("change", updateDeliveryFields);
+    });
 
     updatePaymentFields();
+    updateDeliveryFields();
 
 })();
 </script>
