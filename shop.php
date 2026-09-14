@@ -791,7 +791,6 @@ $products =
 
         <div>
 
-
             <img
                 src="assets/images/logo.png"
                 class="footer-logo"
@@ -800,19 +799,60 @@ $products =
 
 
             <p>
+
                 NAVA Fade Studio is dedicated to
-                delivering clean, modern, and
-                personalized grooming experiences.
+                <br>delivering clean, modern, and
+                <br>personalized grooming experiences.
+
             </p>
 
+                <div class="footer-socials">
+
+
+                    <a
+                        href="#"
+                        aria-label="Facebook">
+
+                        <img
+                            src="assets/images/facebook.png"
+                            alt="Facebook">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="Instagram">
+
+                        <img
+                            src="assets/images/instagram.png"
+                            alt="Instagram">
+
+                    </a>
+
+
+
+                    <a
+                        href="#"
+                        aria-label="X">
+
+                        <img
+                            src="assets/images/x-icon.png"
+                            alt="X">
+
+                    </a>
+
+
+                </div>
 
         </div>
+
 
 
         <!-- ABOUT LINKS -->
 
         <div>
-
 
             <h3>
                 About
@@ -823,29 +863,25 @@ $products =
                 About Us
             </a>
 
-
             <a href="#services">
                 Services
             </a>
 
-
-            <a href="#shop">
+            <a href="shop.php">
                 Shop
             </a>
-
 
             <a href="blog.php">
                 Blog
             </a>
 
-
         </div>
+
 
 
         <!-- SUPPORT -->
 
         <div>
-
 
             <h3>
                 Support
@@ -856,49 +892,38 @@ $products =
                 Who We Are
             </a>
 
-
             <a href="#services">
                 Our Services
             </a>
-
 
             <a href="book.php">
                 Book Appointment
             </a>
 
-
             <a href="#">
                 Contact Us
             </a>
 
-
         </div>
+
 
 
         <!-- ADDRESS -->
 
         <div>
 
-
             <h3>
                 Address
             </h3>
 
 
-            <p>
-                📍 Amlan, Negros Oriental
-            </p>
+            <!-- KEEP YOUR EXISTING ADDRESS -->
 
+            <p>📍 Amlan, Negros Oriental</p>
 
-            <p>
-                📧 navafadestudio@gmail.com
-            </p>
+            <p>📧 navafadestudio@gmail.com</p>
 
-
-            <p>
-                📞 0969 407 4629
-            </p>
-
+            <p>📞 0969 407 4629</p>
 
         </div>
 
