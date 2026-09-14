@@ -376,9 +376,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ),
                 url("assets/images/pattern2.png");
 
-            background-size: 300px;
+            background-size: cover;
 
-            background-attachment: fixed;
+            background-position: center;
         }
 
 

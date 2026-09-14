@@ -142,18 +142,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             background-image:
                 linear-gradient(
-                    rgba(7, 14, 29, 0.30),
-                    rgba(7, 14, 29, 0.30)
+                    rgba(14, 20, 35, 0.90),
+                    rgba(14, 20, 35, 0.90)
                 ),
-                url("assets/images/pattern2.png");
+                url("assets/images/pattern3.png");
 
             background-size: cover;
 
             background-position: center;
-
-            background-repeat: no-repeat;
-
-            background-attachment: fixed;
 
             color: white;
 

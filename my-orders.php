@@ -146,12 +146,13 @@ if (!empty($orders)) {
 
             background:
                 linear-gradient(
-                    rgba(14, 20, 35, 0.93),
-                    rgba(14, 20, 35, 0.93)
+                    rgba(14, 20, 35, 0.90),
+                    rgba(14, 20, 35, 0.90)
                 ),
-                url("assets/images/pattern2.png");
+                url("assets/images/pattern3.png");
 
-            background-size: 300px;
+            background-size: cover;
+            background-position: center;
         }
 
 

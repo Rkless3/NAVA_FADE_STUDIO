@@ -104,38 +104,188 @@ try {
 
 
 <style>
-.appointment-payment { margin-top:18px; padding:18px; border-top:1px solid rgba(255,255,255,.08); background:rgba(14,20,35,.35); border-radius:10px; }
-.appointment-payment h4 { color:#d19a2a; margin-bottom:10px; }
-.appointment-payment p { margin:7px 0; }
-.payment-status { display:inline-block; padding:5px 10px; border-radius:14px; font-size:12px; font-weight:bold; }
-.payment-pending { background:rgba(255,193,7,.15); color:#ffc107; }
-.payment-paid { background:rgba(76,175,80,.15); color:#4caf50; }
-.payment-cancelled, .payment-failed { background:rgba(244,67,54,.15); color:#f44336; }
-.pending-note { color:#ffc107; font-size:13px; }
-.paid-note { color:#4caf50; font-size:13px; }
 
-.appointment-card { position: relative; }
-.appointment-top h3 { max-width: 75%; line-height: 1.45; }
-.payment-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px 18px;
-}
-.payment-item { margin: 0; }
-.payment-label {
-    display: block;
-    color: #aaa;
-    font-size: 12px;
-    margin-bottom: 3px;
-    text-transform: uppercase;
-    letter-spacing: .4px;
-}
-.payment-value { color: #fff; font-weight: 600; word-break: break-word; }
-.reference-value { font-family: monospace; letter-spacing: .5px; }
-@media (max-width: 600px) {
-    .payment-grid { grid-template-columns: 1fr; }
-    .appointment-top h3 { max-width: 100%; }
-}
+    /* =========================================
+       RESET
+    ========================================= */
+
+        * {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Bahnschrift,
+                "Myriad Pro",
+                Arial;
+
+            color: #ffffff;
+
+            background-color: #0e1423;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(7, 14, 29, 0.72),
+                    rgba(7, 14, 29, 0.72)
+                ),
+
+                url("assets/images/pattern3.png");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: repeat;
+
+            background-attachment: fixed;
+
+        }
+
+
+        /* =========================================
+           PAGE
+        ========================================= */
+
+        .booking-page {
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            padding: 50px 20px 70px;
+
+            display: flex;
+
+            justify-content: center;
+
+        }
+
+    .appointment-payment {
+        
+        margin-top:18px; 
+        padding:18px; 
+        border-top:1px solid 
+            rgba(255,255,255,.08); 
+         
+        background:rgba(14,20,35,.35);
+        border-radius:10px;
+    
+    }
+    .appointment-payment h4 {
+        
+        color:#d19a2a;
+        margin-bottom:10px;
+    }
+
+    .appointment-payment p {
+        
+        margin:7px 0; 
+    }
+
+    .payment-status {
+        
+        display:inline-block;
+        padding:5px 10px;
+        border-radius:14px;
+        font-size:12px;
+        font-weight:bold;
+    }
+    
+    .payment-pending {
+        
+        background:
+            rgba(255,193,7,.15);
+        color:#ffc107; 
+    }
+
+    .payment-paid { 
+        
+        background:
+            rgba(76,175,80,.15); 
+        color:#4caf50; 
+    }
+    
+    .payment-cancelled, .payment-failed {
+        
+        background:
+            rgba(244,67,54,.15);
+        color:#f44336; 
+    }
+
+    .pending-note {
+        
+        color:#ffc107; 
+        font-size:13px; 
+    }
+
+    .paid-note {
+         
+        color:#4caf50; 
+        font-size:13px; 
+    }
+
+    .appointment-card {
+        
+        position: relative; 
+    }
+
+    .appointment-top h3 {
+        
+        max-width: 75%; 
+        line-height: 1.45; 
+    }
+    
+    .payment-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 18px;
+    }
+
+    .payment-item {
+        margin: 0; 
+    }
+
+    .payment-label {
+        display: block;
+        color: #aaa;
+        font-size: 12px;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+    }
+
+    .payment-value {
+        
+        color: #fff; 
+        font-weight: 600; 
+        word-break: break-word; 
+    }
+
+    .reference-value {
+        
+        font-family: monospace; 
+        letter-spacing: .5px; 
+    }
+    
+    @media (max-width: 600px) {
+        .payment-grid { grid-template-columns: 1fr; }
+        .appointment-top h3 { max-width: 100%; }
+    }
 
 </style>
 </head>
